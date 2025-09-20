@@ -1,0 +1,336 @@
+{
+	"Identifier": "LVSP",
+	"Dependencies": "",
+	"UK English": {
+		"About": {
+			"Name": "Livesplit Control",
+			"Author": "Yunivers",
+			"Copyright": "Copyright \u00A9 2025 by Yunivers",
+			"Comment": "An extension that communicates with Livesplit and allows you to control the timer.",
+			"Help": "https://github.com/LiveSplit/LiveSplit#commands",
+			"URL": "https://github.com/AITYunivers/LivesplitControl"
+		},
+		"ActionMenu": [
+			[ 0, "Connect to Livesplit" ],
+			[ 1, "Disconnect from Livesplit" ],
+			"---",
+			[
+				"Commands",
+				[ 2, "Start or Split" ],
+				[ 3, "Split" ],
+				[ 4, "Undo Split" ],
+				[ 5, "Skip Split" ],
+				[ 6, "Pause Timer" ],
+				[ 7, "Resume Timer" ],
+				[ 8, "Reset Timer" ],
+				[ 9, "Start Timer" ],
+				[ 10, "Set Game Time" ],
+				[ 11, "Set Loading Times" ],
+				[ 12, "Add Loading Times" ],
+				[ 13, "Pause Game Time" ],
+				[ 14, "Resume Game Time" ],
+				[ 15, "Always Pause Game Time" ],
+				[ 16, "Set Comparison" ],
+				[
+					"Set Timing Method",
+					[ 17, "Switch to Real Time" ],
+					[ 18, "Switch to Game Time" ]
+				],
+				[ 19, "Set Split Name" ],
+				[ 20, "Set Current Split Name" ],
+				[ 21, "Set Custom Variable" ]
+			],
+			"---"
+			],
+		"ConditionMenu": [
+			[ 1, "On Connected" ],
+			[ 2, "On Disconnect" ],
+			[ 3, "Is Connected?" ],
+			"---",
+			[ 0, "On Error" ],
+			"---"
+		],
+		"ExpressionMenu": [
+			[ 0, "Get Error" ],
+			"---",
+			[
+				"Commands",
+				[ 1, "Get Delta" ],
+				[ 2, "Get Delta (with Comparison)" ],
+				[ 3, "Get Last Split Time" ],
+				[ 4, "Get Comparison Split Time" ],
+				[ 5, "Get Current Real Time" ],
+				[ 6, "Get Current Game Time" ],
+				[ 7, "Get Current Time" ],
+				[ 8, "Get Final Time" ],
+				[ 9, "Get Final Time (with Comparison)" ],
+				[ 10, "Get Predicted Time" ],
+				[ 11, "Get Best Possible Time" ],
+				"---",
+				[ 12, "Get Split Index" ],
+				[ 13, "Get Attempt Count" ],
+				[ 14, "Get Completed Count" ],
+				"---",
+				[ 15, "Get Current Split Name" ],
+				[ 16, "Get Previous Split Name" ],
+				[ 17, "Get Current Timer Phase" ],
+				[ 18, "Get Custom Variable Value" ],
+				[ 19, "Ping" ]
+			],
+			"---"
+		],
+		"Actions": [
+			{
+				// [0] Connect to Livesplit
+				"Title": "Connect to Livesplit on port %0",
+				"Parameters": [
+					[ "Integer", "Port (Default is 16834)" ]
+				]
+			},
+			{
+				// [1] Disconnect from Livesplit
+				"Title": "Disconnect from Livesplit"
+			},
+			{
+				// [2] Commands -> Start or split
+				"Title": "Start or split"
+			},
+			{
+				// [3] Commands -> Split
+				"Title": "Split"
+			},
+			{
+				// [4] Commands -> Undo Split
+				"Title": "Undo Split"
+			},
+			{
+				// [5] Commands -> Skip Split
+				"Title": "Skip Split"
+			},
+			{
+				// [6] Commands -> Pause Timer
+				"Title": "Pause Timer"
+			},
+			{
+				// [7] Commands -> Resume Timer
+				"Title": "Resume Timer"
+			},
+			{
+				// [8] Commands -> Reset Timer
+				"Title": "Reset Timer"
+			},
+			{
+				// [9] Commands -> Start Timer
+				"Title": "Start Timer"
+			},
+			{
+				// [10] Commands -> Set Game Time
+				"Title": "Set Game Time",
+				"Parameters": [
+					[ "Integer", "Time in milliseconds" ]
+				]
+			},
+			{
+				// [11] Commands -> Set Loading Times
+				"Title": "Set Loading Times",
+				"Parameters": [
+					[ "Integer", "Time in milliseconds" ]
+				]
+			},
+			{
+				// [12] Commands -> Add Loading Times
+				"Title": "Add Loading Times",
+				"Parameters": [
+					[ "Integer", "Time in milliseconds" ]
+				]
+			},
+			{
+				// [13] Commands -> Pause Game Time
+				"Title": "Pause Game Time"
+			},
+			{
+				// [14] Commands -> Resume Game Time
+				"Title": "Resume Game Time"
+			},
+			{
+				// [15] Commands -> Always Pause Game Time
+				"Title": "Always Pause Game Time"
+			},
+			{
+				// [16] Commands -> Set Comparison
+				"Title": "Set Comparison",
+				"Parameters": [
+					[ "String", "Comparison" ]
+				]
+			},
+			{
+				// [17] Commands -> Switch to Real Time
+				"Title": "Switch to Real Time"
+			},
+			{
+				// [18] Commands -> Switch to Game Time
+				"Title": "Switch to Game Time"
+			},
+			{
+				// [19] Commands -> Set Split Name
+				"Title": "Set Split Name",
+				"Parameters": [
+					[ "Integer", "Split index" ],
+					[ "String", "Split name" ]
+				]
+			},
+			{
+				// [20] Commands -> Set Current Split Name
+				"Title": "Set Current Split Name",
+				"Parameters": [
+					[ "String", "Split name" ]
+				]
+			},
+			{
+				// [21] Commands -> Set Custom Variable
+				"Title": "Set Custom Variable",
+				"Parameters": [
+					[ "String", "Weird JSON array [NAME, VALUE]" ]
+				]
+			}
+		],
+		"Conditions": [
+			{
+				// [0] On error
+				"Title": "%o : On error",
+				"Triggered": true
+			},
+			{
+				// [1] On connected
+				"Title": "%o : On connected",
+				"Triggered": true
+			},
+			{
+				// [2] On disconnect
+				"Title": "%o : On disconnect",
+				"Triggered": true
+			},
+			{
+				// [3] Is connected
+				"Title": "%o : Is connected?",
+				"Triggered": false
+			}
+		],
+		"Expressions": [
+			{
+				// [0] Get error
+				"Title": "Error$(",
+				"Returns": "Text"
+			},
+			{
+				// [1] Commands -> Get Delta
+				"Title": "GetDelta$(",
+				"Returns": "Text"
+			},
+			{
+				// [2] Commands -> Get Delta (with Comparison)
+				"Title": "GetDeltaC$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "String", "Comparison" ]
+				]
+			},
+			{
+				// [3] Commands -> Get Last Split Time
+				"Title": "GetLastSplitTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [4] Commands -> Get Comparison Split Time
+				"Title": "GetComparisonSplitTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [5] Commands -> Get Current Real Time
+				"Title": "GetCurrentRealTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [6] Commands -> Get Current Game Time
+				"Title": "GetCurrentGameTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [7] Commands -> Get Current Time
+				"Title": "GetCurrentTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [8] Commands -> Get Final Time
+				"Title": "GetFinalTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [9] Commands -> Get Final Time (with Comparison)
+				"Title": "GetFinalTimeC$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "String", "Comparison" ]
+				]
+			},
+			{
+				// [10] Commands -> Get Predicted Time
+				"Title": "GetPredictedTime$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "String", "Comparison" ]
+				]
+			},
+			{
+				// [11] Commands -> Get Best Possible Time
+				"Title": "GetBestPossibleTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [12] Commands -> Get Split Index
+				"Title": "GetSplitIndex$(",
+				"Returns": "Integer"
+			},
+			{
+				// [13] Commands -> Get Attempt Count
+				"Title": "GetAttemptCount$(",
+				"Returns": "Integer"
+			},
+			{
+				// [14] Commands -> Get Completed Count
+				"Title": "GetCompletedCount$(",
+				"Returns": "Integer"
+			},
+			{
+				// [15] Commands -> Get Current Split Name
+				"Title": "GetCurrentSplitName$(",
+				"Returns": "Text"
+			},
+			{
+				// [16] Commands -> Get Previous Split Name
+				"Title": "GetPreviousSplitName$(",
+				"Returns": "Text"
+			},
+			{
+				// [17] Commands -> Get Current Timer Phase
+				"Title": "GetCurrentTimerPhase$(",
+				"Returns": "Text"
+			},
+			{
+				// [18] Commands -> Get Custom Variable Value
+				"Title": "GetCustomVariableValue$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "String", "Variable Name" ]
+				]
+			},
+			{
+				// [19] Commands -> Ping
+				"Title": "Ping$(",
+				"Returns": "Text"
+			}
+		],
+		"Properties": [
+		]
+	}
+}
