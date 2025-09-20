@@ -362,5 +362,7 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 
-# DarkEdif Build Folder
+# DarkEdif
 MFX/
+DarkExt.PostMinify.json
+Temp/
