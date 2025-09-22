@@ -38,7 +38,7 @@
 				],
 				[ 19, "Set Split Name" ],
 				[ 20, "Set Current Split Name" ],
-				[ 21, "Set Custom Variable" ]
+				[ 22, "Set Custom Variable" ]
 			],
 			"---"
 			],
@@ -125,21 +125,21 @@
 			},
 			{
 				// [10] Commands -> Set Game Time
-				"Title": "Set Game Time",
+				"Title": "Set Game Time to %0",
 				"Parameters": [
 					[ "Integer", "Time in milliseconds" ]
 				]
 			},
 			{
 				// [11] Commands -> Set Loading Times
-				"Title": "Set Loading Times",
+				"Title": "Set Loading Times to %0",
 				"Parameters": [
 					[ "Integer", "Time in milliseconds" ]
 				]
 			},
 			{
 				// [12] Commands -> Add Loading Times
-				"Title": "Add Loading Times",
+				"Title": "Add %0 to Loading Times",
 				"Parameters": [
 					[ "Integer", "Time in milliseconds" ]
 				]
@@ -158,7 +158,7 @@
 			},
 			{
 				// [16] Commands -> Set Comparison
-				"Title": "Set Comparison",
+				"Title": "Set Comparison to %0",
 				"Parameters": [
 					[ "String", "Comparison" ]
 				]
@@ -173,7 +173,7 @@
 			},
 			{
 				// [19] Commands -> Set Split Name
-				"Title": "Set Split Name",
+				"Title": "Set Split Name %0 to %1",
 				"Parameters": [
 					[ "Integer", "Split index" ],
 					[ "String", "Split name" ]
@@ -181,16 +181,24 @@
 			},
 			{
 				// [20] Commands -> Set Current Split Name
-				"Title": "Set Current Split Name",
+				"Title": "Set Current Split Name to %0",
 				"Parameters": [
 					[ "String", "Split name" ]
 				]
 			},
 			{
-				// [21] Commands -> Set Custom Variable
-				"Title": "Set Custom Variable",
+				// [21] Commands -> Set Custom Variable (OLD)
+				"Title": "Set Custom Variable (OLD) %0",
 				"Parameters": [
 					[ "String", "Weird JSON array [NAME, VALUE]" ]
+				]
+			},
+			{
+				// [22] Commands -> Set Custom Variable
+				"Title": "Set Custom Variable %0 to %1",
+				"Parameters": [
+					[ "String", "Variable name" ],
+					[ "String", "New value" ]
 				]
 			}
 		],

@@ -186,12 +186,22 @@ void Extension::SetCurrentSplitName(const TCHAR* name)
 	}
 }
 
-void Extension::SetCustomVariable(const TCHAR* json)
+void Extension::SetCustomVariableOLD(const TCHAR* json)
 {
 	errorIdentifier = _T("");
 	if (livesplitSocket != NULL)
 	{
 		std::string cmd = std::string("setcustomvariable ") + DarkEdif::TStringToANSI(json) + "\n";
+		send(livesplitSocket, cmd.c_str(), cmd.length(), 0);
+	}
+}
+
+void Extension::SetCustomVariable(const TCHAR* name, const TCHAR* value)
+{
+	errorIdentifier = _T("");
+	if (livesplitSocket != NULL)
+	{
+		std::string cmd = std::string("setcustomvariable [\"") + DarkEdif::TStringToANSI(name) + "\", \"" + DarkEdif::TStringToANSI(value) + "\"]\n";
 		send(livesplitSocket, cmd.c_str(), cmd.length(), 0);
 	}
 }

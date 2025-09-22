@@ -23,7 +23,7 @@ public:
 	Edif::Runtime Runtime;
 
 	static const int MinimumBuild = 254;
-	static const int Version = 1;
+	static const int Version = 2;
 
 	// If you change OEFLAGS, make sure you modify RUNDATA so the data is available, or you'll get crashes!
 	// For example, OEFLAGS::VALUES makes use of the AltVals rv struct.
@@ -71,28 +71,29 @@ public:
 
 	/// Actions
 
-#define Act_LivesplitConnect	0
-#define Act_LivesplitDisconnect	1
-#define Act_StartOrSplit		2
-#define Act_Split				3
-#define Act_Unsplit				4
-#define Act_SkipSplit			5
-#define Act_Pause				6
-#define Act_Resume				7
-#define Act_Reset				8
-#define Act_StartTimer			9
-#define Act_SetGameTime			10
-#define Act_SetLoadingTimes		11
-#define Act_AddLoadingTimes		12
-#define Act_PauseGameTime		13
-#define Act_UnpauseGameTime		14
-#define Act_AlwaysPauseGameTime	15
-#define Act_SetComparison		16
-#define Act_SwitchToRealTime	17
-#define Act_SwitchToGameTime	18
-#define Act_SetSplitName		19
-#define Act_SetCurrentSplitName	20
-#define Act_SetCustomVariable	21
+#define Act_LivesplitConnect		0
+#define Act_LivesplitDisconnect		1
+#define Act_StartOrSplit			2
+#define Act_Split					3
+#define Act_Unsplit					4
+#define Act_SkipSplit				5
+#define Act_Pause					6
+#define Act_Resume					7
+#define Act_Reset					8
+#define Act_StartTimer				9
+#define Act_SetGameTime				10
+#define Act_SetLoadingTimes			11
+#define Act_AddLoadingTimes			12
+#define Act_PauseGameTime			13
+#define Act_UnpauseGameTime			14
+#define Act_AlwaysPauseGameTime		15
+#define Act_SetComparison			16
+#define Act_SwitchToRealTime		17
+#define Act_SwitchToGameTime		18
+#define Act_SetSplitName			19
+#define Act_SetCurrentSplitName		20
+#define Act_SetCustomVariableOLD	21
+#define Act_SetCustomVariable		22
 
 		void LivesplitConnect(int port);
 		void LivesplitDisconnect();
@@ -115,7 +116,8 @@ public:
 		void SwitchToGameTime();
 		void SetSplitName(int index, const TCHAR* name);
 		void SetCurrentSplitName(const TCHAR* name);
-		void SetCustomVariable(const TCHAR* json);
+		void SetCustomVariableOLD(const TCHAR* json);
+		void SetCustomVariable(const TCHAR* name, const TCHAR* value);
 
 	/// Conditions
 

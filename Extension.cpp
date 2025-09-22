@@ -42,7 +42,8 @@ Extension::Extension(const EDITDATA* const edPtr, void* const objCExtPtr) :
 	LinkAction(18, SwitchToGameTime);
 	LinkAction(19, SetSplitName);
 	LinkAction(20, SetCurrentSplitName);
-	LinkAction(21, SetCustomVariable);
+	LinkAction(21, SetCustomVariableOLD);
+	LinkAction(22, SetCustomVariable);
 
 	LinkCondition(0, ImmediateDefault);
 	LinkCondition(1, ImmediateDefault);
