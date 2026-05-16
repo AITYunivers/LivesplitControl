@@ -104,7 +104,7 @@
 					"Get Category Variables",
 					[ 37, "Get Region" ],
 					[ 38, "Get Platform" ],
-					[ 39, "Uses Emulator (0 or 1)" ],
+					[ 39, "Uses Emulator" ],
 					"---",
 					[ 40, "Get Category Variable Count" ],
 					[ 41, "Get Category Variable Name" ],
@@ -550,7 +550,7 @@
 				"Returns": "Text"
 			},
 			{
-				// [39] Commands -> Get Category Variables -> Uses Emulator (True or False)
+				// [39] Commands -> Get Category Variables -> Uses Emulator
 				"Title": "GetCategoryUsesEmulator$(",
 				"Returns": "Text"
 			},
