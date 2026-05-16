@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <sstream>
 #include <cstdlib>
+#include <nlohmann/json.hpp>
 
 class Extension
 {
@@ -57,7 +58,7 @@ public:
 	std::tstring errorIdentifier = _T("");
 	std::string format_millis(int ms);
 	std::tstring handleExpressionSocket(std::string command);
-
+	nlohmann::json getJson(const TCHAR* jsonData);
 
 
 
@@ -94,6 +95,10 @@ public:
 #define Act_SetCurrentSplitName		20
 #define Act_SetCustomVariableOLD	21
 #define Act_SetCustomVariable		22
+#define Act_UndoAllPauses			23
+#define Act_EnableGlobalHotkeys		24
+#define Act_DisableGlobalHotkeys	25
+#define Act_SwitchHotkeyProfile		26
 
 		void LivesplitConnect(int port);
 		void LivesplitDisconnect();
@@ -118,39 +123,84 @@ public:
 		void SetCurrentSplitName(const TCHAR* name);
 		void SetCustomVariableOLD(const TCHAR* json);
 		void SetCustomVariable(const TCHAR* name, const TCHAR* value);
+		void UndoAllPauses();
+		void EnableGlobalHotkeys();
+		void DisableGlobalHotkeys();
+		void SwitchHotkeyProfile(const TCHAR* name);
 
 	/// Conditions
 
-#define Cnd_OnError			0
-#define Cnd_OnConnected		1
-#define Cnd_OnDisconnect	2
-#define Cnd_IsConnected		3
+#define Cnd_OnError					0
+#define Cnd_OnConnected				1
+#define Cnd_OnDisconnect			2
+#define Cnd_IsConnected				3
+#define Cnd_GlobalHotkeysEnabled	4
+#define Cnd_SaveLayouts				5
+#define Cnd_SaveSplits				6
+#define Cnd_SaveLayoutsSelector		7
+#define Cnd_SaveSplitsSelector		8
+#define Cnd_SwitchLayout			9
+#define Cnd_SwitchSplits			10
+#define Cnd_SaveSplitsScreenshot	11
+#define Cnd_CategoryUsesEmulator	12
 
 		bool ImmediateDefault();
 		bool LivesplitConnected();
+		bool GlobalHotkeysEnabled();
+		bool SaveLayouts();
+		bool SaveSplits();
+		bool SaveLayoutsSelector(const TCHAR* file);
+		bool SaveSplitsSelector(const TCHAR* file);
+		bool SwitchLayout(const TCHAR* file);
+		bool SwitchSplits(const TCHAR* file);
+		bool SaveSplitsScreenshot(const TCHAR* file);
+		bool CategoryUsesEmulator();
 
 	/// Expressions
 
-#define Exp_GetErrorID				0
-#define Exp_GetDelta				1
-#define Exp_GetDeltaC				2
-#define Exp_GetLastSplitTime		3
-#define Exp_GetComparisonSplitTime	4
-#define Exp_GetCurrentRealTime		5
-#define Exp_GetCurrentGameTime		6
-#define Exp_GetCurrentTime			7
-#define Exp_GetFinalTime			8
-#define Exp_GetFinalTimeC			9
-#define Exp_GetPredictedTime		10
-#define Exp_GetBestPossibleTime		11
-#define Exp_GetSplitIndex			12
-#define Exp_GetAttemptCount			13
-#define Exp_GetCompletedCount		14
-#define Exp_GetCurrentSplitName		15
-#define Exp_GetPreviousSplitName	16
-#define Exp_GetCurrentTimerPhase	17
-#define Exp_GetCustomVariableValue	18
-#define Exp_Ping					19
+#define Exp_GetErrorID					0
+#define Exp_GetDelta					1
+#define Exp_GetDeltaC					2
+#define Exp_GetLastSplitTime			3
+#define Exp_GetComparisonSplitTime		4
+#define Exp_GetCurrentRealTime			5
+#define Exp_GetCurrentGameTime			6
+#define Exp_GetCurrentTime				7
+#define Exp_GetFinalTime				8
+#define Exp_GetFinalTimeC				9
+#define Exp_GetPredictedTime			10
+#define Exp_GetBestPossibleTime			11
+#define Exp_GetSplitIndex				12
+#define Exp_GetAttemptCount				13
+#define Exp_GetCompletedCount			14
+#define Exp_GetCurrentSplitName			15
+#define Exp_GetPreviousSplitName		16
+#define Exp_GetCurrentTimerPhase		17
+#define Exp_GetCustomVariableValue		18
+#define Exp_Ping						19
+#define Exp_GetComparisonSplitTimeC		20
+#define Exp_GetPausedRealTime			21
+#define Exp_GetPausedGameTime			22
+#define Exp_GetOffset					23
+#define Exp_GetSplitCount				24
+#define Exp_GetSplitName				25
+#define Exp_GetUpcomingSplitName		26
+#define Exp_GetGameName					27
+#define Exp_GetCategoryName				28
+#define Exp_GetComparisonName			29
+#define Exp_GetTimingMethod				30
+#define Exp_GetLayoutPath				31
+#define Exp_GetSplitsPath				32
+#define Exp_GetHotkeyProfile			33
+#define Exp_GetLivesplitVersion			34
+#define Exp_GetLivesplitPath			35
+#define Exp_GetServerType				36
+#define Exp_GetCategoryRegion			37
+#define Exp_GetCategoryPlatform			38
+#define Exp_GetCategoryUsesEmulator		39
+#define Exp_GetCategoryVariableCount	40
+#define Exp_GetCategoryVariableName		41
+#define Exp_GetCategoryVariable			42
 
 		const TCHAR* GetErrorID();
 		const TCHAR* GetDelta();
@@ -172,6 +222,29 @@ public:
 		const TCHAR* GetCurrentTimerPhase();
 		const TCHAR* GetCustomVariableValue(const TCHAR* varName);
 		const TCHAR* Ping();
+		const TCHAR* GetComparisonSplitTimeC(const TCHAR* comparison);
+		const TCHAR* GetPausedRealTime();
+		const TCHAR* GetPausedGameTime();
+		const TCHAR* GetOffset();
+		int			 GetSplitCount();
+		const TCHAR* GetSplitName(int index);
+		const TCHAR* GetUpcomingSplitName();
+		const TCHAR* GetGameName();
+		const TCHAR* GetCategoryName();
+		const TCHAR* GetComparisonName();
+		const TCHAR* GetTimingMethod();
+		const TCHAR* GetLayoutPath();
+		const TCHAR* GetSplitsPath();
+		const TCHAR* GetHotkeyProfile();
+		const TCHAR* GetLivesplitVersion();
+		const TCHAR* GetLivesplitPath();
+		const TCHAR* GetServerType();
+		const TCHAR* GetCategoryRegion();
+		const TCHAR* GetCategoryPlatform();
+		const TCHAR* GetCategoryUsesEmulator();
+		int			 GetCategoryVariableCount();
+		const TCHAR* GetCategoryVariableName(int varIndex);
+		const TCHAR* GetCategoryVariable(const TCHAR* varName);
 
 
 

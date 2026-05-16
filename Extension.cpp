@@ -44,11 +44,24 @@ Extension::Extension(const EDITDATA* const edPtr, void* const objCExtPtr) :
 	LinkAction(20, SetCurrentSplitName);
 	LinkAction(21, SetCustomVariableOLD);
 	LinkAction(22, SetCustomVariable);
+	LinkAction(23, UndoAllPauses);
+	LinkAction(24, EnableGlobalHotkeys);
+	LinkAction(25, DisableGlobalHotkeys);
+	LinkAction(26, SwitchHotkeyProfile);
 
 	LinkCondition(0, ImmediateDefault);
 	LinkCondition(1, ImmediateDefault);
 	LinkCondition(2, ImmediateDefault);
 	LinkCondition(3, LivesplitConnected);
+	LinkCondition(4, GlobalHotkeysEnabled);
+	LinkCondition(5, SaveLayouts);
+	LinkCondition(6, SaveSplits);
+	LinkCondition(7, SaveLayoutsSelector);
+	LinkCondition(8, SaveSplitsSelector);
+	LinkCondition(9, SwitchLayout);
+	LinkCondition(10, SwitchSplits);
+	LinkCondition(11, SaveSplitsScreenshot);
+	LinkCondition(12, CategoryUsesEmulator);
 
 	LinkExpression(0, GetErrorID);
 	LinkExpression(1, GetDelta);
@@ -70,6 +83,29 @@ Extension::Extension(const EDITDATA* const edPtr, void* const objCExtPtr) :
 	LinkExpression(17, GetCurrentTimerPhase);
 	LinkExpression(18, GetCustomVariableValue);
 	LinkExpression(19, Ping);
+	LinkExpression(20, GetComparisonSplitTimeC);
+	LinkExpression(21, GetPausedRealTime);
+	LinkExpression(22, GetPausedGameTime);
+	LinkExpression(23, GetOffset);
+	LinkExpression(24, GetSplitCount);
+	LinkExpression(25, GetSplitName);
+	LinkExpression(26, GetUpcomingSplitName);
+	LinkExpression(27, GetGameName);
+	LinkExpression(28, GetCategoryName);
+	LinkExpression(29, GetComparisonName);
+	LinkExpression(30, GetTimingMethod);
+	LinkExpression(31, GetLayoutPath);
+	LinkExpression(32, GetSplitsPath);
+	LinkExpression(33, GetHotkeyProfile);
+	LinkExpression(34, GetLivesplitVersion);
+	LinkExpression(35, GetLivesplitPath);
+	LinkExpression(36, GetServerType);
+	LinkExpression(37, GetCategoryRegion);
+	LinkExpression(38, GetCategoryPlatform);
+	LinkExpression(39, GetCategoryUsesEmulator);
+	LinkExpression(40, GetCategoryVariableCount);
+	LinkExpression(41, GetCategoryVariableName);
+	LinkExpression(42, GetCategoryVariable);
 
 	/*
 		This is where you'd do anything you'd do in CreateRunObject in the original SDK
@@ -171,6 +207,34 @@ std::tstring Extension::handleExpressionSocket(std::string command)
 		}
 	}
 	return _T("");
+}
+
+// Totally not stolen from GamejoltGameAPI :D
+nlohmann::json Extension::getJson(const TCHAR* jsonData)
+{
+#ifdef _UNICODE
+	std::wstring wstr(jsonData);
+	std::u16string jDataU;
+	for (wchar_t wc : wstr)
+	{
+		if (wc < 0x80) {
+			jDataU += static_cast<char>(wc);
+		}
+		else
+		{
+			std::stringstream ss;
+			ss << "\\u" << std::setfill('0') << std::setw(4) << std::hex << static_cast<int>(wc);
+			std::string hex_str = ss.str();
+			for (char c : hex_str) {
+				jDataU += static_cast<char16_t>(c);
+			}
+		}
+	}
+	nlohmann::json j = nlohmann::json::parse(jDataU);
+#else
+	nlohmann::json j = nlohmann::json::parse(jsonData);
+#endif
+	return j;
 }
 
 // These are called if there's no function linked to an ID

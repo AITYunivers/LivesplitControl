@@ -5,7 +5,7 @@
 		"About": {
 			"Name": "Livesplit Control",
 			"Author": "Yunivers",
-			"Copyright": "Copyright \u00A9 2025 by Yunivers",
+			"Copyright": "Copyright \u00A9 2026 by Yunivers",
 			"Comment": "An extension that communicates with Livesplit and allows you to control the timer.",
 			"Help": "https://github.com/LiveSplit/LiveSplit#commands",
 			"URL": "https://github.com/AITYunivers/LivesplitControl"
@@ -22,6 +22,7 @@
 				[ 5, "Skip Split" ],
 				[ 6, "Pause Timer" ],
 				[ 7, "Resume Timer" ],
+				[ 23, "Undo All Pauses" ],
 				[ 8, "Reset Timer" ],
 				[ 9, "Start Timer" ],
 				[ 10, "Set Game Time" ],
@@ -36,6 +37,9 @@
 					[ 17, "Switch to Real Time" ],
 					[ 18, "Switch to Game Time" ]
 				],
+				[ 24, "Enable Global Hotkeys" ],
+				[ 25, "Disable Global Hotkeys" ],
+				[ 26, "Switch Hotkey Profile" ],
 				[ 19, "Set Split Name" ],
 				[ 20, "Set Current Split Name" ],
 				[ 22, "Set Custom Variable" ]
@@ -48,8 +52,21 @@
 			[ 3, "Is Connected?" ],
 			"---",
 			[ 0, "On Error" ],
+			"---",
+			[
+				"Commands",
+				[ 4, "Global Hotkeys Enabled" ],
+				[ 5, "Save Layout" ],
+				[ 6, "Save Splits" ],
+				[ 7, "Save Layout (Selector)" ],
+				[ 8, "Save Splits (Selector)" ],
+				[ 9, "Switch Layout" ],
+				[ 10, "Switch Splits" ],
+				[ 11, "Save Splits Screenshot" ],
+				[ 12, "Category Variables : Uses Emulator" ]
+			],
 			"---"
-		],
+			],
 		"ExpressionMenu": [
 			[ 0, "Get Error" ],
 			"---",
@@ -58,7 +75,8 @@
 				[ 1, "Get Delta" ],
 				[ 2, "Get Delta (with Comparison)" ],
 				[ 3, "Get Last Split Time" ],
-				[ 4, "Get Comparison Split Time" ],
+				[ 4, "Get Current Comparison Split Time" ],
+				[ 20, "Get Comparison Split Time" ],
 				[ 5, "Get Current Real Time" ],
 				[ 6, "Get Current Game Time" ],
 				[ 7, "Get Current Time" ],
@@ -66,15 +84,42 @@
 				[ 9, "Get Final Time (with Comparison)" ],
 				[ 10, "Get Predicted Time" ],
 				[ 11, "Get Best Possible Time" ],
+				[ 21, "Get Paused Real Time" ],
+				[ 22, "Get Paused Game Time" ],
+				[ 23, "Get Offset" ],
 				"---",
 				[ 12, "Get Split Index" ],
+				[ 24, "Get Split Count" ],
 				[ 13, "Get Attempt Count" ],
 				[ 14, "Get Completed Count" ],
 				"---",
+				[ 25, "Get Split Name" ],
 				[ 15, "Get Current Split Name" ],
 				[ 16, "Get Previous Split Name" ],
+				[ 26, "Get Upcoming Split Name" ],
 				[ 17, "Get Current Timer Phase" ],
+				[ 27, "Get Game Name" ],
+				[ 28, "Get Category Name" ],
+				[
+					"Get Category Variables",
+					[ 37, "Get Region" ],
+					[ 38, "Get Platform" ],
+					[ 39, "Uses Emulator (0 or 1)" ],
+					"---",
+					[ 40, "Get Category Variable Count" ],
+					[ 41, "Get Category Variable Name" ],
+					[ 42, "Get Category Variable" ]
+				],
+				[ 29, "Get Comparison Name" ],
+				[ 30, "Get Timing Method" ],
+				// Decided against adding getsplitsscreenshot as users should just use savesplitsscreenshot
 				[ 18, "Get Custom Variable Value" ],
+				[ 31, "Get Layout Path" ],
+				[ 32, "Get Splits Path" ],
+				[ 33, "Get Hotkey Profile" ],
+				[ 34, "Get Livesplit Version" ],
+				[ 35, "Get Livesplit Path" ],
+				[ 36, "Get Server Type" ],
 				[ 19, "Ping" ]
 			],
 			"---"
@@ -200,6 +245,21 @@
 					[ "String", "Variable name" ],
 					[ "String", "New value" ]
 				]
+			},
+			{
+				// [23] Commands -> Undo All Pauses
+				"Title": "Undo All Pauses"
+			},
+			{
+				// [24] Commands -> Enable Global Hotkeys
+				"Title": "Enable Global Hotkeys"
+			},
+			{
+				// [25] Commands -> Disable Global Hotkeys
+				"Title": "Switch Hotkey Profile",
+				"Parameters": [
+					[ "String", "Profile Name" ]
+				]
 			}
 		],
 		"Conditions": [
@@ -222,6 +282,57 @@
 				// [3] Is connected
 				"Title": "%o : Is connected?",
 				"Triggered": false
+			},
+			{
+				// [4] Commands -> Global Hotkeys Enabled
+				"Title": "%o : Global Hotkeys Enabled?"
+			},
+			{
+				// [5] Commands -> Save Layout
+				"Title": "%o : Save Layout"
+			},
+			{
+				// [6] Commands -> Save Splits
+				"Title": "%o : Save Splits"
+			},
+			{
+				// [7] Commands -> Save Layout (Selector)
+				"Title": "%o : Save Layout to %0",
+				"Parameters": [
+					[ "File", "File Path" ]
+				]
+			},
+			{
+				// [8] Commands -> Save Splits (Selector)
+				"Title": "%o : Save Splits to %0",
+				"Parameters": [
+					[ "File", "File Path" ]
+				]
+			},
+			{
+				// [9] Commands -> Switch Layout
+				"Title": "%o : Switch Layout to %0",
+				"Parameters": [
+					[ "File", "File Path" ]
+				]
+			},
+			{
+				// [10] Commands -> Switch Splits
+				"Title": "%o : Switch Splits to %0",
+				"Parameters": [
+					[ "File", "File Path" ]
+				]
+			},
+			{
+				// [11] Commands -> Save Splits Screenshot
+				"Title": "%o : Save Splits Screenshot to %0",
+				"Parameters": [
+					[ "File", "File Path" ]
+				]
+			},
+			{
+				// [12] Commands -> Get Category Variables -> Uses Emulator
+				"Title": "%o : Category Uses Emulator"
 			}
 		],
 		"Expressions": [
@@ -249,7 +360,7 @@
 				"Returns": "Text"
 			},
 			{
-				// [4] Commands -> Get Comparison Split Time
+				// [4] Commands -> Get Current Comparison Split Time
 				"Title": "GetComparisonSplitTime$(",
 				"Returns": "Text"
 			},
@@ -336,6 +447,133 @@
 				// [19] Commands -> Ping
 				"Title": "Ping$(",
 				"Returns": "Text"
+			},
+			{
+				// [20] Commands -> Get Comparison Split Time
+				"Title": "GetComparisonSplitTimeC$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "String", "Comparison" ]
+				]
+			},
+			{
+				// [21] Commands -> Get Paused Real Time
+				"Title": "GetPausedRealTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [22] Commands -> Get Paused Game Time
+				"Title": "GetPausedGameTime$(",
+				"Returns": "Text"
+			},
+			{
+				// [23] Commands -> Get Offset
+				"Title": "GetOffset$(",
+				"Returns": "Text"
+			},
+			{
+				// [24] Commands -> Get Split Count
+				"Title": "GetSplitCount(",
+				"Returns": "Integer"
+			},
+			{
+				// [25] Commands -> Get Split Name
+				"Title": "GetSplitName$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "Integer", "Split Index" ]
+				]
+			},
+			{
+				// [26] Commands -> Get Upcoming Split Name
+				"Title": "GetUpcomingSplitName$(",
+				"Returns": "Text"
+			},
+			{
+				// [27] Commands -> Get Game Name
+				"Title": "GetGameName$(",
+				"Returns": "Text"
+			},
+			{
+				// [28] Commands -> Get Category Name
+				"Title": "GetCategoryName$(",
+				"Returns": "Text"
+			},
+			{
+				// [29] Commands -> Get Comparison Name
+				"Title": "GetComparisonName$(",
+				"Returns": "Text"
+			},
+			{
+				// [30] Commands -> Get Timing Method
+				"Title": "GetTimingMethod$(",
+				"Returns": "Text"
+			},
+			{
+				// [31] Commands -> Get Layout Path
+				"Title": "GetLayoutPath$(",
+				"Returns": "Text"
+			},
+			{
+				// [32] Commands -> Get Splits Path
+				"Title": "GetSplitsPath$(",
+				"Returns": "Text"
+			},
+			{
+				// [33] Commands -> Get Hotkey Profile
+				"Title": "GetHotkeyProfile$(",
+				"Returns": "Text"
+			},
+			{
+				// [34] Commands -> Get Livesplit Version
+				"Title": "GetLivesplitVersion$(",
+				"Returns": "Text"
+			},
+			{
+				// [35] Commands -> Get Livesplit Path
+				"Title": "GetLivesplitPath$(",
+				"Returns": "Text"
+			},
+			{
+				// [36] Commands -> Get Server Type
+				"Title": "GetServerType$(",
+				"Returns": "Text"
+			},
+			{
+				// [37] Commands -> Get Category Variables -> Get Region
+				"Title": "GetCategoryRegion$(",
+				"Returns": "Text"
+			},
+			{
+				// [38] Commands -> Get Category Variables -> Get Platform
+				"Title": "GetCategoryPlatform$(",
+				"Returns": "Text"
+			},
+			{
+				// [39] Commands -> Get Category Variables -> Uses Emulator (True or False)
+				"Title": "GetCategoryUsesEmulator$(",
+				"Returns": "Text"
+			},
+			{
+				// [40] Commands -> Get Category Variables -> Get Category Variable Count
+				"Title": "GetCategoryVariableCount(",
+				"Returns": "Integer"
+			},
+			{
+				// [41] Commands -> Get Category Variables -> Get Category Variable Name
+				"Title": "GetCategoryVariableName$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "Integer", "Variable Index" ]
+				]
+			},
+			{
+				// [42] Commands -> Get Category Variables -> Get Category Variable
+				"Title": "GetCategoryVariable$(",
+				"Returns": "Text",
+				"Parameters": [
+					[ "String", "Variable Name" ]
+				]
 			}
 		],
 		"Properties": [

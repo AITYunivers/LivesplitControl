@@ -116,12 +116,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Lib\Shared\SurfaceMultiPlat.cpp" />
     <ClCompile Include="..\Lib\Windows\Edif.Edittime.cpp" />
     <ClCompile Include="Edittime.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Inc\Shared\SurfaceMultiPlat.hpp" />
     <ClInclude Include="..\Inc\Windows\Props.hpp" />
     <ClInclude Include="..\Inc\Windows\WindowsDefines.hpp" />
+    <ClInclude Include="..\Inc\Windows\WindowsSurface.hpp" />
     <ClInclude Include="DarkExt.json">
       <FileType>Document</FileType>
     </ClInclude>
@@ -135,6 +138,7 @@
     <ClInclude Include="..\Inc\Shared\ObjectSelection.hpp" />
     <ClInclude Include="Common.hpp" />
     <ClInclude Include="Extension.hpp" />
+    <ClInclude Include="nlohmann\json.hpp" />
     <ClInclude Include="Resource.h" />
     <ClCompile Include="..\Lib\Shared\DarkEdif.cpp" />
     <ClCompile Include="..\Lib\Shared\Edif.cpp" />

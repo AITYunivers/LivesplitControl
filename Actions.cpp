@@ -205,3 +205,34 @@ void Extension::SetCustomVariable(const TCHAR* name, const TCHAR* value)
 		send(livesplitSocket, cmd.c_str(), cmd.length(), 0);
 	}
 }
+
+void Extension::UndoAllPauses()
+{
+	errorIdentifier = _T("");
+	if (livesplitSocket != NULL)
+		send(livesplitSocket, "undoallpauses\n", 14, 0);
+}
+
+void Extension::EnableGlobalHotkeys()
+{
+	errorIdentifier = _T("");
+	if (livesplitSocket != NULL)
+		send(livesplitSocket, "enableglobalhotkeys\n", 20, 0);
+}
+
+void Extension::DisableGlobalHotkeys()
+{
+	errorIdentifier = _T("");
+	if (livesplitSocket != NULL)
+		send(livesplitSocket, "disableglobalhotkeys\n", 21, 0);
+}
+
+void Extension::SwitchHotkeyProfile(const TCHAR* name)
+{
+	errorIdentifier = _T("");
+	if (livesplitSocket != NULL)
+	{
+		std::string cmd = std::string("switchhotkeyprofile ") + DarkEdif::TStringToANSI(name) + "\n";
+		send(livesplitSocket, cmd.c_str(), cmd.length(), 0);
+	}
+}

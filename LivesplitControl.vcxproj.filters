@@ -7,6 +7,9 @@
     <ClCompile Include="..\Lib\Windows\Edif.Edittime.cpp">
       <Filter>Global to all extensions\Edif</Filter>
     </ClCompile>
+    <ClCompile Include="..\Lib\Shared\SurfaceMultiPlat.cpp">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Inc\Windows\MMFWindowsMasterHeader.hpp">
@@ -19,6 +22,15 @@
       <Filter>Global to all extensions</Filter>
     </ClInclude>
     <ClInclude Include="..\Inc\Windows\WindowsDefines.hpp">
+      <Filter>Global to all extensions\Edif</Filter>
+    </ClInclude>
+    <ClInclude Include="nlohmann\json.hpp">
+      <Filter>Header Files\nlohmann</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Windows\WindowsSurface.hpp">
+      <Filter>Global to all extensions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Inc\Shared\SurfaceMultiPlat.hpp">
       <Filter>Global to all extensions\Edif</Filter>
     </ClInclude>
   </ItemGroup>
@@ -108,6 +120,9 @@
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{8574e181-81d9-4183-9163-ddfd50c45129}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\nlohmann">
+      <UniqueIdentifier>{fc33fd8d-ef74-4019-9761-175729d05f3c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
